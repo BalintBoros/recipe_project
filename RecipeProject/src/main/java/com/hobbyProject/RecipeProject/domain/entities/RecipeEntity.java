@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -34,5 +36,14 @@ public class RecipeEntity {
 
     @ManyToMany(mappedBy = "favouriteRecipes")
     private Set<UserEntity> users = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "recipe_ingredients",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<IngredientEntity> ingredients = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecipeImageEntity> images = new ArrayList<>();
 
 }
