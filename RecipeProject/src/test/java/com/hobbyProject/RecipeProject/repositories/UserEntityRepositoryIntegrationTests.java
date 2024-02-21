@@ -16,16 +16,16 @@ import java.util.Optional;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class UserEntityRepositoryIntegraionTests {
+public class UserEntityRepositoryIntegrationTests {
 
     private UserRepository userRepositoryForTest;
 
     @Autowired
-    public UserEntityRepositoryIntegraionTests(UserRepository userRepositoryForTest) {
+    public UserEntityRepositoryIntegrationTests(UserRepository userRepositoryForTest) {
         this.userRepositoryForTest = userRepositoryForTest;
     }
 
-    //@Test
+    @Test
     public void testThatMultipleUsersCanBeCreatedAndCalled(){
         UserEntity userEntity = TestDataUtil.createTestUserEntityA();
         userRepositoryForTest.save(userEntity);
