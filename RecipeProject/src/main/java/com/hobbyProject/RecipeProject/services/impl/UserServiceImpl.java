@@ -3,11 +3,13 @@ package com.hobbyProject.RecipeProject.services.impl;
 import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
 import com.hobbyProject.RecipeProject.repositories.UserRepository;
 import com.hobbyProject.RecipeProject.services.UserService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
