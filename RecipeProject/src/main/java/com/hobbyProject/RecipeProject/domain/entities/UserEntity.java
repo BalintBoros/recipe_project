@@ -25,10 +25,10 @@ public class UserEntity {
     private String email;
     private String password; // hashed
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "favourite_recipes",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<RecipeEntity> favouriteRecipes = new HashSet<>();
+    private Set<RecipeEntity> favouriteRecipes;
 
 }

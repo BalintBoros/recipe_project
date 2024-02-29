@@ -1,7 +1,12 @@
 package com.hobbyProject.RecipeProject;
 
+import com.hobbyProject.RecipeProject.domain.dto.RecipeDto;
 import com.hobbyProject.RecipeProject.domain.dto.UserDto;
+import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
 import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
+
+import java.util.Collections;
+import java.util.Set;
 
 public final class TestDataUtil {
 
@@ -9,35 +14,62 @@ public final class TestDataUtil {
     }
 
     public static UserEntity createTestUserEntityA() {
+        Set<RecipeEntity> emptySet = Collections.emptySet();
         return new UserEntity().builder()
                 .id(1L)
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
-                .email("tsetryan@email.com").build();
+                .email("tsetryan@email.com")
+                .favouriteRecipes(emptySet).build();
     }
 
+
     public static UserDto createTestUserDtoA() {
+        Set<RecipeDto> emptySet = Collections.emptySet();
         return new UserDto().builder()
                 .id(1L)
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
-                .email("tsetryan@email.com").build();
+                .email("tsetryan@email.com")
+                .favouriteRecipes(emptySet).build();
     }
 
     public static UserEntity createTestUserEntityB() {
+        Set<RecipeEntity> emptySet = Collections.emptySet();
         return new UserEntity().builder()
                 .id(2L)
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
-                .email("tsetryan@email.com").build();
+                .email("tsetryan@email.com")
+                .favouriteRecipes(emptySet).build();
     }
 
     public static UserDto createTestUserDtoB() {
+        Set<RecipeDto> emptySet = Collections.emptySet();
         return new UserDto().builder()
                 .id(2L)
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
-                .email("tsetryan@email.com").build();
+                .email("tsetryan@email.com")
+                .favouriteRecipes(emptySet).build();
+    }
+
+    public static RecipeEntity createTestRecipeEntityA() {
+    return new RecipeEntity().builder()
+            .id(10L)
+            .name("test recipeA")
+            .description("test descriptionA")
+            .instructions("test instructionsA")
+            .build();
+    }
+
+    public static RecipeEntity createTestRecipeEntityB() {
+        return new RecipeEntity().builder()
+                .id(11L)
+                .name("test recipeB")
+                .description("test descriptionB")
+                .instructions("test instructionsB")
+                .build();
     }
 
 }
