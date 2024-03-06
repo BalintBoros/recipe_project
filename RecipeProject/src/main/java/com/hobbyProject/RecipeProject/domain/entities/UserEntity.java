@@ -25,6 +25,9 @@ public class UserEntity {
     private String email;
     private String password; // hashed
 
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RecipeEntity> createdRecipes;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "favourite_recipes",
             joinColumns = @JoinColumn(name = "user_id"),

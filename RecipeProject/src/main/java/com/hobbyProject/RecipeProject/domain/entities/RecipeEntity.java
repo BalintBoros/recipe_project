@@ -30,20 +30,20 @@ public class RecipeEntity {
     private String cookTime;
     private double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity creator;
 
     @ManyToMany(mappedBy = "favouriteRecipes")
-    private Set<UserEntity> users = new HashSet<>();
+    private Set<UserEntity> favoritedByUsers;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_ingredients",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    private Set<IngredientEntity> ingredients = new HashSet<>();
+    private Set<IngredientEntity> ingredients;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecipeImageEntity> images = new ArrayList<>();
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<RecipeImageEntity> images;
 
 }
