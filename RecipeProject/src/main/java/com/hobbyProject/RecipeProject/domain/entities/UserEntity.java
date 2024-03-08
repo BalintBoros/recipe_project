@@ -25,10 +25,10 @@ public class UserEntity {
     private String email;
     private String password; // hashed
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeEntity> createdRecipes;
+    @OneToMany(mappedBy = "creator")
+    private Set<RecipeEntity> createdRecipes = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "favourite_recipes",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))

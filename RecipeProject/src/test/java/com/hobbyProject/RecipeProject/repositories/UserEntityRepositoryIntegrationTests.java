@@ -2,6 +2,8 @@ package com.hobbyProject.RecipeProject.repositories;
 
 import com.hobbyProject.RecipeProject.TestDataUtil;
 import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
+import com.hobbyProject.RecipeProject.services.UserService;
+import com.hobbyProject.RecipeProject.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +28,7 @@ public class UserEntityRepositoryIntegrationTests {
     public UserEntityRepositoryIntegrationTests(UserRepository userRepositoryForTest) {
         this.userRepositoryForTest = userRepositoryForTest;
     }
-
+    //fixme
     @Test
     public void testThatUsersCanBeCreatedAndCalled(){
         UserEntity userEntity = TestDataUtil.createTestUserEntityA();

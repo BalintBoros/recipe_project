@@ -30,12 +30,12 @@ public class RecipeEntity {
     private String cookTime;
     private double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity creator;
 
     @ManyToMany(mappedBy = "favouriteRecipes")
-    private Set<UserEntity> favoritedByUsers;
+    private Set<UserEntity> favoritedByUsers = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_ingredients",

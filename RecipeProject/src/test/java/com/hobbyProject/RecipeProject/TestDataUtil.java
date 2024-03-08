@@ -23,6 +23,7 @@ public final class TestDataUtil {
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
                 .email("tsetryan@email.com")
+                .createdRecipes(emptySet)
                 .favouriteRecipes(emptySet).build();
     }
 
@@ -34,6 +35,7 @@ public final class TestDataUtil {
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
                 .email("tsetryan@email.com")
+                .createdRecipes(emptySet)
                 .favouriteRecipes(emptySet).build();
     }
 
@@ -44,6 +46,7 @@ public final class TestDataUtil {
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
                 .email("tsetryan@email.com")
+                .createdRecipes(emptySet)
                 .favouriteRecipes(emptySet).build();
     }
 
@@ -54,6 +57,7 @@ public final class TestDataUtil {
                 .username("test Ryan Ghostling")
                 .password("testRyanPassword")
                 .email("tsetryan@email.com")
+                .createdRecipes(emptySet)
                 .favouriteRecipes(emptySet).build();
     }
 

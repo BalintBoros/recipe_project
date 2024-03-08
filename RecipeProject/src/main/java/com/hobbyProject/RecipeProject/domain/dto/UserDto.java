@@ -23,6 +23,8 @@ public class UserDto {
 
     private String password;
 
+    private Set<RecipeDto> createdRecipes;
+
     private Set<RecipeDto> favouriteRecipes;
 
 }
