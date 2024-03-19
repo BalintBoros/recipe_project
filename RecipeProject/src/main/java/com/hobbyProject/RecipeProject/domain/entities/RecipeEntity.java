@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +32,7 @@ public class RecipeEntity {
     private String cookTime;
     private double rating;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity creator;
 
@@ -45,5 +47,23 @@ public class RecipeEntity {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RecipeImageEntity> images;
+
+    @Override
+    public String toString() {
+        return "RecipeEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", category='" + category + '\'' +
+                ", difficulty=" + difficulty +
+                ", cookTime='" + cookTime + '\'' +
+                ", rating=" + rating +
+                ", creator=" + (creator!=null ? creator : "") +
+                ", favoritedByUsers=" + (!favoritedByUsers.isEmpty() ? favoritedByUsers : "") +
+                ", ingredients=" + (!ingredients.isEmpty() ? ingredients : "") +
+                ", images=" + (!images.isEmpty() ? images : "") +
+                '}';
+    }
 
 }

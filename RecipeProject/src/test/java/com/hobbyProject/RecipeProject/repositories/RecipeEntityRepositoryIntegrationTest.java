@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class RecipeEntityRepositoryIntegrationTest {
 
-    @Autowired
     private RecipeRepository recipeRepositoryForTest;
 
     @Autowired
@@ -35,12 +34,12 @@ public class RecipeEntityRepositoryIntegrationTest {
 
     @Test
     public void testThatRecipeCanBeCreatedAndCalled() {
-        UserEntity userEntity = TestDataUtil.createTestUserEntityA();
+        UserEntity userEntityA = TestDataUtil.createTestUserEntityA();
         UserEntity userEntityB = TestDataUtil.createTestUserEntityB();
-        Set<UserEntity> users = Set.of(userEntity,userEntityB);
+        Set<UserEntity> users = Set.of(userEntityA,userEntityB);
         Set<IngredientEntity> ingredients = Set.of(new IngredientEntity().builder().id(44L).name("testIngredient").build());
         List<RecipeImageEntity> images = Collections.emptyList();
-        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntity, users, ingredients, images);
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredients, images);
         recipeRepositoryForTest.save(recipeEntity);
         Optional<RecipeEntity> result = recipeRepositoryForTest.findById(recipeEntity.getId());
         assertThat(result).isNotNull();

@@ -42,8 +42,9 @@ public class UserEntityRepositoryIntegrationTests {
     @Test
     public void testThatMultipleUsersCanBeCreatedAndCalled() {
         UserEntity userEntityA = TestDataUtil.createTestUserEntityA();
-        userRepositoryForTest.save(userEntityA);
         UserEntity userEntityB = TestDataUtil.createTestUserEntityB();
+
+        userRepositoryForTest.save(userEntityA);
         userRepositoryForTest.save(userEntityB);
         Iterable<UserEntity> result = userRepositoryForTest.findAll();
         assertThat(result).containsAnyElementsOf(List.of(userEntityA, userEntityB));
