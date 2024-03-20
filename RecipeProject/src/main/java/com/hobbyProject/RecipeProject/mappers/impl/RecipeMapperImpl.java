@@ -4,7 +4,9 @@ import com.hobbyProject.RecipeProject.domain.dto.RecipeDto;
 import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
 import com.hobbyProject.RecipeProject.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RecipeMapperImpl implements Mapper<RecipeEntity, RecipeDto> {
 
     private ModelMapper modelMapper;

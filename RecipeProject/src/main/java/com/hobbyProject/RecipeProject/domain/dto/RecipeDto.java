@@ -1,14 +1,12 @@
 package com.hobbyProject.RecipeProject.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = {"createdRecipes", "favouriteRecipes"})
 public class RecipeDto {
 
     private Long id;

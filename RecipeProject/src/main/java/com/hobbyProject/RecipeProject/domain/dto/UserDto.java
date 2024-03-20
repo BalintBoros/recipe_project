@@ -1,10 +1,7 @@
 package com.hobbyProject.RecipeProject.domain.dto;
 
 import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
         @Builder
+@EqualsAndHashCode(exclude = {"createdRecipes", "favouriteRecipes"})
 public class UserDto {
 
     private Long id;

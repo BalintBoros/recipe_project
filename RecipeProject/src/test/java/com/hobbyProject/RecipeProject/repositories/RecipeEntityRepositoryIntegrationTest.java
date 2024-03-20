@@ -82,7 +82,18 @@ public class RecipeEntityRepositoryIntegrationTest {
         assertThat(result.get().getCookTime()).isEqualTo("55 min");
     }
 
-
+    @Test
+    public void testThatRecipeCanBeDeleted(){
+        UserEntity userEntityA = TestDataUtil.createTestUserEntityA();
+        Set<UserEntity> users = Set.of(userEntityA);
+        Set<IngredientEntity> ingredients = Set.of(new IngredientEntity().builder().id(44L).name("testIngredient").build());
+        List<RecipeImageEntity> images = Collections.emptyList();
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredients, images);
+        recipeRepositoryForTest.save(recipeEntity);
+        recipeRepositoryForTest.deleteById(recipeEntity.getId());
+        Optional<RecipeEntity> result = recipeRepositoryForTest.findById(recipeEntity.getId());
+        assertThat(result).isEmpty();
+    }
 
 
 }
