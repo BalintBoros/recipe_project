@@ -1,10 +1,7 @@
 package com.hobbyProject.RecipeProject.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -12,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"createdRecipes", "favouriteRecipes"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -45,8 +43,6 @@ public class UserEntity {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", createdRecipes=" + (!createdRecipes.isEmpty() ? createdRecipes : "") +
-                ", favouriteRecipes=" + (!favouriteRecipes.isEmpty() ? favouriteRecipes : "") +
                 '}';
     }
 

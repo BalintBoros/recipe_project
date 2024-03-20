@@ -1,10 +1,7 @@
 package com.hobbyProject.RecipeProject.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"creator", "favoritedByUsers", "ingredients"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -59,10 +57,6 @@ public class RecipeEntity {
                 ", difficulty=" + difficulty +
                 ", cookTime='" + cookTime + '\'' +
                 ", rating=" + rating +
-                ", creator=" + (creator!=null ? creator : "") +
-                ", favoritedByUsers=" + (!favoritedByUsers.isEmpty() ? favoritedByUsers : "") +
-                ", ingredients=" + (!ingredients.isEmpty() ? ingredients : "") +
-                ", images=" + (!images.isEmpty() ? images : "") +
                 '}';
     }
 
