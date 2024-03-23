@@ -1,5 +1,8 @@
 package com.hobbyProject.RecipeProject.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -10,6 +13,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude = {"createdRecipes", "favouriteRecipes"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -27,6 +31,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "creator")
     @Fetch(FetchMode.JOIN)
+    @JsonManagedReference
     private Set<RecipeEntity> createdRecipes = new HashSet<>();
 
     @ManyToMany

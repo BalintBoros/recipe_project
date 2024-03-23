@@ -1,5 +1,8 @@
 package com.hobbyProject.RecipeProject.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -12,6 +15,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude = {"creator", "favoritedByUsers", "ingredients"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -32,9 +36,11 @@ public class RecipeEntity {
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private UserEntity creator;
 
     @ManyToMany(mappedBy = "favouriteRecipes")
+    @JsonBackReference
     private Set<UserEntity> favoritedByUsers = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
