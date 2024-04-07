@@ -6,6 +6,7 @@ import com.hobbyProject.RecipeProject.mappers.Mapper;
 import com.hobbyProject.RecipeProject.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class UserController {
         return new ResponseEntity<>(savedUserDto, HttpStatus.CREATED);
     }
 
+    //TODO: change the getAllUsers to return userEntites and not DTO-s
     @GetMapping(path = "/users")
     public ResponseEntity<Iterable<UserDto>> getAllUsers() {
         Iterable<UserEntity> userEntities = userService.findAll().stream().toList();
@@ -42,6 +44,26 @@ public class UserController {
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
 //        return userEntities.stream().map(userMapper::mapTo).collect(Collectors.toList());
     }
+/**
+ * same problem below
+ * */
+/*    @GetMapping(path = "/users")
+    public ResponseEntity<Iterable<UserDto>> getAllUsers() {
+        try {
+            Iterable<UserEntity> userEntities = userService.findAll(); // Assuming this method fetches all users
+
+            // Mapping entities to DTOs
+            Iterable<UserDto> userDtos = StreamSupport.stream(userEntities.spliterator(), false)
+                    .map(userMapper::mapTo)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(userDtos); // Return 200 OK with the list of user DTOs
+        } catch (Exception e) {
+            System.out.println("getAllUsers has failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }*/
+
 
     @PatchMapping(path = "/users/{id}")
     public ResponseEntity<UserDto> particalUserUpdate(

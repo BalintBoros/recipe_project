@@ -53,11 +53,16 @@ public class UserControllerTests {
 
     @Test
     public void testThatListUsersReturnsHttpOk() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/users")
+        /*mockMvc.perform(MockMvcRequestBuilders.get("/api/users")
                         .contentType(MediaType.APPLICATION_JSON))
             .andExpect(
                 MockMvcResultMatchers.status().isOk()
-        );
+        );*/
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/users")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
+
     }
 
 }

@@ -30,7 +30,7 @@ public class UserEntity {
     private String password; // hashed
 
     @OneToMany(mappedBy = "creator")
-    @Fetch(FetchMode.JOIN)
+//    @Fetch(FetchMode.JOIN)
     @JsonManagedReference
     private Set<RecipeEntity> createdRecipes = new HashSet<>();
 
@@ -39,6 +39,7 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     @Fetch(FetchMode.JOIN)
+    @JsonManagedReference
     private Set<RecipeEntity> favouriteRecipes;
 
     @Override

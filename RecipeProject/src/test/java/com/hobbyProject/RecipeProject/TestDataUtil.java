@@ -2,10 +2,7 @@ package com.hobbyProject.RecipeProject;
 
 import com.hobbyProject.RecipeProject.domain.dto.RecipeDto;
 import com.hobbyProject.RecipeProject.domain.dto.UserDto;
-import com.hobbyProject.RecipeProject.domain.entities.IngredientEntity;
-import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
-import com.hobbyProject.RecipeProject.domain.entities.RecipeImageEntity;
-import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
+import com.hobbyProject.RecipeProject.domain.entities.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,7 +59,7 @@ public final class TestDataUtil {
     }
 
     public static RecipeEntity createTestRecipeEntityA(UserEntity creator, Set<UserEntity> users,
-                                                   Set<IngredientEntity> ingredients, List<RecipeImageEntity> images) {
+                                                       List<RecipeIngredientEntity> ingredients, List<RecipeImageEntity> images) {
         return new RecipeEntity().builder()
             .id(10L)
             .name("test recipeA")
@@ -70,13 +67,13 @@ public final class TestDataUtil {
             .instructions("test instructionsA")
             .creator(creator)
             .favoritedByUsers(users)
-            .ingredients(ingredients)
+//            .ingredients(ingredients)
             .images(images)
             .build();
     }
 
     public static RecipeEntity createTestRecipeEntityB(UserEntity creator, Set<UserEntity> users,
-                                                   Set<IngredientEntity> ingredients, List<RecipeImageEntity> images) {
+                                                       List<RecipeIngredientEntity> ingredients, List<RecipeImageEntity> images) {
         return new RecipeEntity().builder()
             .id(11L)
             .name("test recipeB")
@@ -84,7 +81,7 @@ public final class TestDataUtil {
             .instructions("test instructionsB")
             .creator(creator)
             .favoritedByUsers(users)
-            .ingredients(ingredients)
+//            .ingredients(ingredients)
             .images(images)
             .build();
     }

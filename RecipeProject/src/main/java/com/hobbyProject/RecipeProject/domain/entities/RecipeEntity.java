@@ -43,11 +43,14 @@ public class RecipeEntity {
     @JsonBackReference
     private Set<UserEntity> favoritedByUsers = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+/*    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_ingredients",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-    private Set<IngredientEntity> ingredients;
+    private Set<IngredientEntity> ingredients;*/
+
+    @OneToMany(mappedBy = "recipe")
+    private List<RecipeIngredientEntity> ingredients;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RecipeImageEntity> images;

@@ -1,10 +1,7 @@
 package com.hobbyProject.RecipeProject.repositories;
 
 import com.hobbyProject.RecipeProject.TestDataUtil;
-import com.hobbyProject.RecipeProject.domain.entities.IngredientEntity;
-import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
-import com.hobbyProject.RecipeProject.domain.entities.RecipeImageEntity;
-import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
+import com.hobbyProject.RecipeProject.domain.entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +37,7 @@ public class RecipeEntityRepositoryIntegrationTest {
         Set<UserEntity> users = Set.of(userEntityA,userEntityB);
         Set<IngredientEntity> ingredients = Set.of(new IngredientEntity().builder().id(44L).name("testIngredient").build());
         List<RecipeImageEntity> images = Collections.emptyList();
-        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredients, images);
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, Collections.emptyList(), images);
         recipeRepositoryForTest.save(recipeEntity);
         Optional<RecipeEntity> result = recipeRepositoryForTest.findById(recipeEntity.getId());
         assertThat(result).isNotNull();
@@ -51,19 +48,37 @@ public class RecipeEntityRepositoryIntegrationTest {
     @Test
     @Transactional
     public void testThatMultipleRecipesCanBeCreatedAndCalled(){
+        //creating userEntities
         UserEntity userEntityA = TestDataUtil.createTestUserEntityA();
         UserEntity userEntityB = TestDataUtil.createTestUserEntityB();
+        //creating users list
         Set<UserEntity> users = Set.of(userEntityA,userEntityB);
-        Set<IngredientEntity> ingredientsA = Set.of(new IngredientEntity().builder().id(44L).name("testIngredientA").build(),new IngredientEntity().builder().id(45L).name("testIngredientB").build());
-        Set<IngredientEntity> ingredientsB = Set.of(new IngredientEntity().builder().id(45L).name("testIngredientB").build());
+        //Creating empty lists
+        List<RecipeIngredientEntity> emptyIngredients = Collections.emptyList();
         List<RecipeImageEntity> images = Collections.emptyList();
-        RecipeEntity recipeEntityA = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredientsA, images);
-        RecipeEntity recipeEntityB = TestDataUtil.createTestRecipeEntityB(userEntityB, users, ingredientsB, images);
+        //Creating and saving recipeEntities
+        RecipeEntity recipeEntityA = TestDataUtil.createTestRecipeEntityA(userEntityA, users, emptyIngredients, images);
+        recipeRepositoryForTest.save(recipeEntityA);
+        RecipeEntity recipeEntityB = TestDataUtil.createTestRecipeEntityB(userEntityB, users, emptyIngredients, images);
+        recipeRepositoryForTest.save(recipeEntityB);
+        // Ingredients
+        IngredientEntity ingredientA = new IngredientEntity().builder().id(44L).name("testIngredientA").build();
+        IngredientEntity ingredientB = new IngredientEntity().builder().id(45L).name("testIngredientB").build();
+        List<RecipeIngredientEntity> ingredientsA = List.of(new RecipeIngredientEntity().builder()
+                .ingredient(ingredientA).recipe(recipeEntityA).build());
+        List<RecipeIngredientEntity> ingredientsB = List.of(new RecipeIngredientEntity().builder()
+                .ingredient(ingredientB).recipe(recipeEntityA).build());
+        // updating recipeEntities with ingredients
+        recipeEntityA.setIngredients(ingredientsA);
+        recipeEntityA.setIngredients(ingredientsB);
+        // saving the updated recipeEntities
         recipeRepositoryForTest.save(recipeEntityA);
         recipeRepositoryForTest.save(recipeEntityB);
         Iterable<RecipeEntity> result = recipeRepositoryForTest.findAll();
         assertThat(result).isNotNull();
         assertThat(result).usingRecursiveFieldByFieldElementComparatorIgnoringFields("creator", "favoritedByUsers", "ingredients").contains(recipeEntityA, recipeEntityB);
+//        assertThat(result).usingRecursiveFieldByFieldElementComparatorIgnoringFields("creator", "favoritedByUsers")
+//                .contains(recipeEntityA, recipeEntityB);
     }
 
     @Test
@@ -72,7 +87,7 @@ public class RecipeEntityRepositoryIntegrationTest {
         Set<UserEntity> users = Set.of(userEntityA);
         Set<IngredientEntity> ingredients = Set.of(new IngredientEntity().builder().id(44L).name("testIngredient").build());
         List<RecipeImageEntity> images = Collections.emptyList();
-        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredients, images);
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, Collections.emptyList(), images);
         recipeRepositoryForTest.save(recipeEntity);
         recipeEntity.setCookTime("55 min"); recipeEntity.setName("BrandNew Recipe Name");
         recipeRepositoryForTest.save(recipeEntity);
@@ -88,7 +103,7 @@ public class RecipeEntityRepositoryIntegrationTest {
         Set<UserEntity> users = Set.of(userEntityA);
         Set<IngredientEntity> ingredients = Set.of(new IngredientEntity().builder().id(44L).name("testIngredient").build());
         List<RecipeImageEntity> images = Collections.emptyList();
-        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, ingredients, images);
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, Collections.emptyList(), images);
         recipeRepositoryForTest.save(recipeEntity);
         recipeRepositoryForTest.deleteById(recipeEntity.getId());
         Optional<RecipeEntity> result = recipeRepositoryForTest.findById(recipeEntity.getId());

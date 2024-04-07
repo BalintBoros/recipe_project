@@ -7,10 +7,13 @@ import com.hobbyProject.RecipeProject.services.RecipeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+@RestController
+@RequestMapping("/api")
 public class RecipeController {
 
     private RecipeService recipeService;
@@ -29,5 +32,16 @@ public class RecipeController {
         RecipeDto savedRecipeDto = recipeMapper.mapTo(savedRecipeEntity);
         return new ResponseEntity<>(savedRecipeDto, HttpStatus.CREATED);
     }
+
+    @GetMapping(path = "/recipes")
+    public ResponseEntity<Iterable<RecipeDto>> getAllRecipes(){
+        Iterable<RecipeEntity> recipeEntities = recipeService.findAll().stream().toList();
+        Iterable<RecipeDto> recipeDtos = StreamSupport.stream(recipeEntities.spliterator(), false)
+                .map(recipeMapper::mapTo)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(recipeDtos, HttpStatus.OK);
+    }
+
+
 
 }
