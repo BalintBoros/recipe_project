@@ -1,6 +1,7 @@
 package com.hobbyProject.RecipeProject.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -34,6 +35,11 @@ public class UserEntity {
     @JsonManagedReference
     private Set<RecipeEntity> createdRecipes = new HashSet<>();
 
+    @JsonIgnore
+    public Set<RecipeEntity> getCreatedRecipes() {
+        return createdRecipes;
+    }
+
     @ManyToMany
     @JoinTable(name = "favourite_recipes",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,6 +47,11 @@ public class UserEntity {
     @Fetch(FetchMode.JOIN)
     @JsonManagedReference
     private Set<RecipeEntity> favouriteRecipes;
+
+    @JsonIgnore
+    public Set<RecipeEntity> getFavouriteRecipes() {
+        return favouriteRecipes;
+    }
 
     @Override
     public String toString() {

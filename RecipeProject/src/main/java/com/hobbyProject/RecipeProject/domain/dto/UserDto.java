@@ -1,5 +1,6 @@
 package com.hobbyProject.RecipeProject.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hobbyProject.RecipeProject.domain.entities.RecipeEntity;
 import lombok.*;
 
@@ -21,7 +22,17 @@ public class UserDto {
 
     private String password;
 
-    private Set<RecipeDto> createdRecipes;
+
+/*    public Set<RecipeDto> getFavouriteRecipes() {
+        return favouriteRecipes;
+    }*/
+    private Set<RecipeDto> createdRecipes = new HashSet<>();
+
+    @JsonIgnore
+    public Set<RecipeDto> getCreatedRecipes() {
+        return createdRecipes;
+    }
+
 
     private Set<RecipeDto> favouriteRecipes;
 

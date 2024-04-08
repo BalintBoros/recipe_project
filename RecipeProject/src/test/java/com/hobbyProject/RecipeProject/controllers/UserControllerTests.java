@@ -1,5 +1,6 @@
 package com.hobbyProject.RecipeProject.controllers;
 import com.hobbyProject.RecipeProject.TestDataUtil;
+import com.hobbyProject.RecipeProject.domain.dto.UserDto;
 import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
 import com.hobbyProject.RecipeProject.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,6 +65,22 @@ public class UserControllerTests {
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
 
+    }
+
+    @Test
+    public void testThatFullUpdateUserReturnsHttpStatus4200WhenUserExists() throws Exception {
+        UserEntity testUserEntity = TestDataUtil.createTestUserEntityA();
+        UserEntity savedUser = userService.save(testUserEntity);
+
+        UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+        String userDtoJson = objectMapper.writeValueAsString(testUserDto);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/users" + savedUser.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userDtoJson))
+                .andExpect(
+                        MockMvcResultMatchers.status().isOk()
+                );
     }
 
 }

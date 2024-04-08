@@ -1,5 +1,6 @@
 package com.hobbyProject.RecipeProject.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Data
@@ -17,6 +18,13 @@ public class RecipeDto {
     private int difficulty;
     private String cookTime;
     private double rating;
+
     private UserDto creator;
+
+    @JsonIgnore
+    public UserDto getCreator() {
+        return creator;
+    }
+
 
 }

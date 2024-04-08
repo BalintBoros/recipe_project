@@ -2,6 +2,7 @@ package com.hobbyProject.RecipeProject.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,9 +40,19 @@ public class RecipeEntity {
     @JsonBackReference
     private UserEntity creator;
 
+    @JsonIgnore
+    public UserEntity getCreator() {
+        return creator;
+    }
+
     @ManyToMany(mappedBy = "favouriteRecipes")
     @JsonBackReference
     private Set<UserEntity> favoritedByUsers = new HashSet<>();
+
+    @JsonIgnore
+    public Set<UserEntity> getFavoritedByUsers() {
+        return favoritedByUsers;
+    }
 
 /*    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_ingredients",

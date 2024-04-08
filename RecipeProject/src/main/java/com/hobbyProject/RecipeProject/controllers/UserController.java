@@ -4,11 +4,13 @@ import com.hobbyProject.RecipeProject.domain.dto.UserDto;
 import com.hobbyProject.RecipeProject.domain.entities.UserEntity;
 import com.hobbyProject.RecipeProject.mappers.Mapper;
 import com.hobbyProject.RecipeProject.services.UserService;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -64,6 +66,14 @@ public class UserController {
         }
     }*/
 
+    @GetMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> getSingleUser(@PathVariable("id") Long id) {
+        Optional<UserEntity> userEntitieOpt = userService.findById(id);
+        UserEntity userEntity = userEntitieOpt.get();
+        UserDto userDto = userMapper.mapTo(userEntity);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    //        return userEntities.stream().map(userMapper::mapTo).collect(Collectors.toList());
+    }
 
     @PatchMapping(path = "/users/{id}")
     public ResponseEntity<UserDto> particalUserUpdate(

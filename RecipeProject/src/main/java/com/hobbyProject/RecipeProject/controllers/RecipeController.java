@@ -42,6 +42,29 @@ public class RecipeController {
         return new ResponseEntity<>(recipeDtos, HttpStatus.OK);
     }
 
+    @PatchMapping(path = "recipes/{id}")
+    public ResponseEntity<RecipeDto> particalRecipeUpdate(
+            @PathVariable("id") Long id,
+            @RequestBody RecipeDto recipeDto){
+        if(!recipeService.isExists(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            RecipeEntity recipeEntity = recipeMapper.mapFrom(recipeDto);
+            RecipeEntity updatedRecipeEntity = recipeService.particalUpdate(id, recipeEntity);
+            return new ResponseEntity<>(recipeMapper.mapTo(updatedRecipeEntity), HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping(path = "recipes/{id}")
+    public ResponseEntity deleteRecipe(@PathVariable("id") Long id){
+        if(!recipeService.isExists(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            recipeService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
 
 
 }
