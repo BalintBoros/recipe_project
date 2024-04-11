@@ -39,6 +39,7 @@ public class RecipeController {
         Iterable<RecipeDto> recipeDtos = StreamSupport.stream(recipeEntities.spliterator(), false)
                 .map(recipeMapper::mapTo)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(recipeDtos, HttpStatus.OK);
     }
 

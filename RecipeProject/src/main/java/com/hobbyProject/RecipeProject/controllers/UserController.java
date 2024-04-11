@@ -35,7 +35,6 @@ public class UserController {
         return new ResponseEntity<>(savedUserDto, HttpStatus.CREATED);
     }
 
-    //TODO: change the getAllUsers to return userEntites and not DTO-s
     @GetMapping(path = "/users")
     public ResponseEntity<Iterable<UserDto>> getAllUsers() {
         Iterable<UserEntity> userEntities = userService.findAll().stream().toList();
@@ -47,7 +46,7 @@ public class UserController {
 //        return userEntities.stream().map(userMapper::mapTo).collect(Collectors.toList());
     }
 /**
- * same problem below
+ * other solution
  * */
 /*    @GetMapping(path = "/users")
     public ResponseEntity<Iterable<UserDto>> getAllUsers() {

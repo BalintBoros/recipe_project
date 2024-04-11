@@ -68,14 +68,16 @@ public class UserControllerTests {
     }
 
     @Test
-    public void testThatFullUpdateUserReturnsHttpStatus4200WhenUserExists() throws Exception {
+    public void testThatPartialUpdateExistingUserReturnsHttpStatus200Ok() throws Exception {
         UserEntity testUserEntity = TestDataUtil.createTestUserEntityA();
         UserEntity savedUser = userService.save(testUserEntity);
 
         UserDto testUserDto = TestDataUtil.createTestUserDtoA();
+        testUserDto.setUsername("UPDATED_username");
         String userDtoJson = objectMapper.writeValueAsString(testUserDto);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/users" + savedUser.getId())
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/api/users/" + savedUser.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userDtoJson))
                 .andExpect(
