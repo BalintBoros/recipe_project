@@ -3,6 +3,7 @@ package com.hobbyProject.RecipeProject.controllers;
 import com.hobbyProject.RecipeProject.TestDataUtil;
 import com.hobbyProject.RecipeProject.domain.entities.*;
 import com.hobbyProject.RecipeProject.services.RecipeService;
+import com.hobbyProject.RecipeProject.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RecipeControllerTests {
 
     private RecipeService recipeService;
+    private UserService userService;
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
 
     @Autowired
-    public RecipeControllerTests(RecipeService recipeService, MockMvc mockMvc) {
+    public RecipeControllerTests(RecipeService recipeService, UserService userService, MockMvc mockMvc) {
         this.recipeService = recipeService;
+        this.userService = userService;
         this.mockMvc = mockMvc;
         this.objectMapper = new ObjectMapper();
     }
@@ -45,13 +48,14 @@ public class RecipeControllerTests {
     @Test
     public void testThatRecipeCreateReturns201Created() throws Exception {
         UserEntity userEntityA = TestDataUtil.createTestUserEntityA();
+        UserEntity savedUser = userService.save(userEntityA);
         Set<UserEntity> users = Set.of(userEntityA);
 
         List<IngredientEntity> ingredients = List.of(new IngredientEntity()
                 .builder().id(null).name("testIngredient").build());
         List<RecipeImageEntity> images = Collections.emptyList();
 //        RecipeIngredientEntity
-        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(userEntityA, users, Collections.emptyList(), images);
+        RecipeEntity recipeEntity = TestDataUtil.createTestRecipeEntityA(savedUser, users, Collections.emptyList(), images);
         recipeEntity.setCookTime("55 min"); recipeEntity.setName("Recipe in controller test");
         recipeEntity.setCategory("Desszert");
         recipeEntity.setDifficulty(2);
